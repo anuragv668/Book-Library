@@ -1,3 +1,5 @@
+const library = [];
+
 function Book (title, author, pages = 0, read) {
   this.title = title;
   this.author = author;
@@ -10,4 +12,8 @@ function Book (title, author, pages = 0, read) {
   this.info = () => {
     return `The ${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`;
   }
+}
+
+function addBookToLibrary(title, author, pages, read) {
+  library.push(new Book(title, author, pages, read));
 }
