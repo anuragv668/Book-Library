@@ -17,3 +17,11 @@ function Book (title, author, pages = 0, read) {
 function addBookToLibrary(title, author, pages, read) {
   library.push(new Book(title, author, pages, read));
 }
+
+function printLibrary (elembody) {
+  for (let i = 0; i < library.length; i++) {
+    let temp = document.createElement('div');
+    temp.textContent = library[i].info();
+    elembody.appendChild(temp);
+  }
+}
