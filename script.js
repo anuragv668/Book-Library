@@ -19,6 +19,11 @@ function addBookToLibrary(title, author, pages, read) {
 }
 
 function printLibrary (elembody) {
+
+  while(elembody.firstChild) {
+    elembody.removeChild(elembody.firstChild);
+  }
+
   for (let i = 0; i < library.length; i++) {
     let temp = document.createElement('div');
     temp.textContent = library[i].info();
@@ -30,7 +35,7 @@ const openbtn = document.querySelector('.dialog-open');
 const dialogbox = document.querySelector('dialog');
 const closebtn = document.querySelector('.close');
 const list = document.querySelector('.list');
-const form = document.querySelector('form')
+const form = document.querySelector('form');
 
 openbtn.addEventListener('click', () => {
   dialogbox.showModal();
@@ -38,5 +43,18 @@ openbtn.addEventListener('click', () => {
 
 closebtn.addEventListener('click', (e)=> {
   e.preventDefault();
+
+  let arr = [];
+  for (let i = 0; i < 4; i++) {
+    if (i == 3) {
+      arr.push(form[3].checked);
+      break;
+    }
+    arr.push(form[i].value);
+  }
+  console.log(arr)
+  addBookToLibrary(...arr);
+  printLibrary(list);
+
   dialogbox.close();
 });
