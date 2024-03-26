@@ -27,6 +27,7 @@ function printLibrary (elembody) {
   for (let i = 0; i < library.length; i++) {
     let libindex = library[i];
     let bookContainer = document.createElement('div');
+    bookContainer.classList.add('listed');
     let temp = document.createElement('span');
     temp.textContent = libindex.info();
     bookContainer.appendChild(temp);
