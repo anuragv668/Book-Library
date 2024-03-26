@@ -5,10 +5,10 @@ function Book (title, author, pages = 0, read) {
   if (read == true) {
     this.read = 'read';
   } else {
-    this.read = "not read yet";
+    this.read = "not read";
   }
   this.info = () => {
-    return `The ${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`;
+    return `The ${this.title} by ${this.author}, ${this.pages} pages. `;
   }
 }
 
@@ -25,9 +25,32 @@ function printLibrary (elembody) {
   }
 
   for (let i = 0; i < library.length; i++) {
-    let temp = document.createElement('div');
-    temp.textContent = library[i].info();
-    elembody.appendChild(temp);
+    let libindex = library[i];
+    let bookContainer = document.createElement('div');
+    let temp = document.createElement('span');
+    temp.textContent = libindex.info();
+    bookContainer.appendChild(temp);
+
+    let readbtn = document.createElement('button');
+    readbtn.textContent = library[i].read;
+    readbtn.onclick = () => {
+      if (readbtn.textContent == 'read') {
+        library[i].read = 'not read';
+      } else {
+        library[i].read = 'read';
+      }
+      readbtn.textContent = library[i].read;
+    }
+    bookContainer.appendChild(readbtn);
+
+    let rmBtn = document.createElement('button');
+    rmBtn.onclick = () => {
+      library.splice(library.indexOf(libindex), 1);
+      elembody.removeChild(bookContainer);
+    }
+    rmBtn.textContent = 'remove book';
+    bookContainer.appendChild(rmBtn);
+    elembody.appendChild(bookContainer);
   }
 }
 
