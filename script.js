@@ -14,30 +14,15 @@ class Book {
   }
 }
 
-
-// function Book (title, author, pages = 0, read) {
-//   this.title = title;
-//   this.author = author;
-//   this.pages = pages;
-//   if (read == true) {
-//     this.read = 'read';
-//   } else {
-//     this.read = "not read";
-//   }
-//   this.info = () => {
-//     return `The ${this.title} by ${this.author}, ${this.pages} pages. `;
-//   }
-// }
-
 const library = [];
 
 function addBookToLibrary(title, author, pages, read) {
   library.push(new Book(title, author, pages, read));
 }
 
-function printLibrary (elembody) {
+function printLibrary(elembody) {
 
-  while(elembody.firstChild) {
+  while (elembody.firstChild) {
     elembody.removeChild(elembody.firstChild);
   }
 
@@ -78,11 +63,37 @@ const closebtn = document.querySelector('.close');
 const list = document.querySelector('.list');
 const form = document.querySelector('form');
 
+function validate() {
+  let title = document.getElementById('title');
+  let author = document.getElementById('author');
+  let pages = document.getElementById('pages');
+
+  let returned = true;
+  
+  if (title.validity.valueMissing) {
+    title.setCustomValidity("title cannot be empty");
+    title.reportValidity();
+    returned = false;
+  }
+  if (author.validity.valueMissing) {
+    author.setCustomValidity("author cannot be empty");
+    author.reportValidity();
+    returned = false;
+  }
+  if (pages.validity.valueMissing) {
+    pages.setCustomValidity("pages cannot be empty");
+    pages.reportValidity();
+    returned = false;
+  }
+
+  return returned;
+}
+
 openbtn.addEventListener('click', () => {
   dialogbox.showModal();
 });
 
-closebtn.addEventListener('click', (e)=> {
+closebtn.addEventListener('click', (e) => {
   e.preventDefault();
 
   let arr = [];
@@ -94,8 +105,15 @@ closebtn.addEventListener('click', (e)=> {
     arr.push(form[i].value);
   }
   console.log(arr)
-  addBookToLibrary(...arr);
-  printLibrary(list);
-
-  dialogbox.close();
+  if (validate()) {
+    addBookToLibrary(...arr);
+    printLibrary(list);
+    form.reset()
+    dialogbox.close();
+  }
+  
 });
+
+const title = document.getElementById('title');
+
+
